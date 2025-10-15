@@ -1,6 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-// Interface for TypeScript type checking
 export interface IHotel extends Document {
   name: string;
   location: string;
@@ -14,7 +13,6 @@ export interface IHotel extends Document {
   descriptionEmbedding?: number[];
 }
 
-// Mongoose Schema Definition
 const hotelSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
@@ -29,11 +27,10 @@ const hotelSchema: Schema = new Schema(
     descriptionEmbedding: { type: [Number] },
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 
-// Create and export the Hotel model
 const Hotel = mongoose.model<IHotel>("Hotel", hotelSchema);
 
 export default Hotel;

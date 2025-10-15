@@ -58,7 +58,6 @@ const RoomCard = ({ room, hotelId, dateRange }) => {
 
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group dark:hover:ring-1 dark:hover:ring-slate-500">
-      {/* Image Carousel */}
       <div className="relative">
         <Carousel className="w-full">
           <CarouselContent>
@@ -77,7 +76,6 @@ const RoomCard = ({ room, hotelId, dateRange }) => {
         </Carousel>
       </div>
 
-      {/* Card Content */}
       <CardContent className="flex flex-col flex-grow p-4">
         <h3 className="mb-4 text-lg font-bold">{room.type}</h3>
         <div className="grid grid-cols-2 mb-4 text-sm gap-x-4 gap-y-3 text-muted-foreground">

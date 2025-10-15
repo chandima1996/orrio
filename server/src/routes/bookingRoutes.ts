@@ -11,11 +11,8 @@ const router = express.Router();
 
 router.route("/mybookings").get(ClerkExpressRequireAuth(), getMyBookings);
 
-// Route to create a new booking
-router.route("/").post(ClerkExpressRequireAuth(), createBooking); // Creating a booking should be a protected action
-
+router.route("/").post(ClerkExpressRequireAuth(), createBooking);
 router.route("/:id").get(ClerkExpressRequireAuth(), getBookingById);
-// Route to cancel a specific booking
 router.route("/:id/cancel").put(ClerkExpressRequireAuth(), cancelBooking);
 
 export default router;

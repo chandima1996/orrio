@@ -5,7 +5,6 @@ import Booking from "../models/bookingModel";
 // @desc    Create a new booking
 // @route   POST /api/bookings
 const createBooking = asyncHandler(async (req: Request, res: Response) => {
-  // We'll trust the frontend to send all required data for now
   const booking = new Booking(req.body);
   const createdBooking = await booking.save();
   res.status(201).json(createdBooking);
@@ -39,13 +38,11 @@ const cancelBooking = asyncHandler(async (req: Request, res: Response) => {
 // @desc    Get single booking by ID
 // @route   GET /api/bookings/:id
 const getBookingById = asyncHandler(async (req: Request, res: Response) => {
-  // We populate hotel and room to get their full details
   const booking = await Booking.findById(req.params.id)
     .populate("hotel")
     .populate("room");
 
   if (booking) {
-    // Security check: Make sure the user requesting the booking is the one who made it
     const { userId } = (req as any).auth;
     if (booking.user.toString() !== userId) {
       res.status(401).json({ message: "Not authorized" });

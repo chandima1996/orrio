@@ -6,7 +6,6 @@ import connectDB from "../src/config/db";
 import OpenAI from "openai";
 
 dotenv.config();
-// colors.enable() line eka dan ona na, mokada api eka direct use karanne
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -17,7 +16,6 @@ const generateEmbeddings = async () => {
     await connectDB();
     const hotels = await Hotel.find({});
 
-    // === START: UPDATED CONSOLE LOGS ===
     console.log(colors.cyan("Starting to generate embeddings for hotels..."));
 
     for (const hotel of hotels) {
@@ -39,7 +37,6 @@ const generateEmbeddings = async () => {
     console.log(
       colors.bold.green("All hotels have been embedded successfully!")
     );
-    // === END: UPDATED CONSOLE LOGS ===
 
     process.exit();
   } catch (error) {

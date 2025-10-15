@@ -34,10 +34,10 @@ const AdminDashboardPage = () => {
           <ManageRooms />
         </TabsContent>
         <TabsContent value="users" className="mt-6">
-          <ManageUsers /> {/* 2. USE THE COMPONENT */}
+          <ManageUsers />
         </TabsContent>
         <TabsContent value="taxes" className="mt-6">
-          <ManageTaxes /> {/* 2. USE THE COMPONENT */}
+          <ManageTaxes />
         </TabsContent>
       </Tabs>
     </div>

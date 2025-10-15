@@ -5,21 +5,21 @@ import { Building2, Users, Star } from "lucide-react";
 
 const statsData = [
   {
-    icon: <Building2 className="h-8 w-8 text-white" />, // Icon color eka white karanna
+    icon: <Building2 className="w-8 h-8 text-white" />,
     value: "150+",
     label: "Hotels Registered",
     bgImage:
-      "https://images.unsplash.com/photo-1561501900-3701fa6a0864?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170", // Nawa bgImage prop eka
+      "https://images.unsplash.com/photo-1561501900-3701fa6a0864?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
   },
   {
-    icon: <Users className="h-8 w-8 text-white" />, // Icon color eka white karanna
+    icon: <Users className="w-8 h-8 text-white" />,
     value: "10k+",
     label: "Happy Customers",
     bgImage:
       "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
   },
   {
-    icon: <Star className="h-8 w-8 text-white" />, // Icon color eka white karanna
+    icon: <Star className="w-8 h-8 text-white" />,
     value: "4.9",
     label: "Overall Rating",
     bgImage:
@@ -30,33 +30,26 @@ const statsData = [
 const StatsSection = () => {
   return (
     <section className="pb-16 sm:pb-24">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div className="container px-4 mx-auto">
+        <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-3">
           {statsData.map((stat, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }} // Animate when it comes into view
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }} // Animate only once
+              viewport={{ once: true }}
             >
               <Card className="relative overflow-hidden group">
-                {" "}
-                {/* relative, overflow-hidden, group add karanna */}
-                {/* Background Image */}
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" // Animation add karanna
+                  className="absolute inset-0 transition-transform duration-500 bg-center bg-cover group-hover:scale-105"
                   style={{ backgroundImage: `url(${stat.bgImage})` }}
                 ></div>
-                {/* Overlay (text eka hodata penna) */}
-                <div className="absolute inset-0 bg-black/60 group-hover:bg-black/70 transition-colors duration-300"></div>
-                <CardContent className="relative z-10 p-10 flex flex-col items-center gap-4 text-white">
-                  {" "}
-                  {/* text-white, relative z-10 add karanna */}
+                <div className="absolute inset-0 transition-colors duration-300 bg-black/60 group-hover:bg-black/70"></div>
+                <CardContent className="relative z-10 flex flex-col items-center gap-4 p-10 text-white">
                   {stat.icon}
                   <p className="text-4xl font-bold">{stat.value}</p>
                   <p className="text-xl font-semibold">{stat.label}</p>{" "}
-                  {/* Label text size eka poddak wadi karamu */}
                 </CardContent>
               </Card>
             </motion.div>

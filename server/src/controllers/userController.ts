@@ -5,13 +5,11 @@ import Hotel from "../models/hotelModel";
 
 const clerk = Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
 
-// @desc    Get all users from Clerk
 const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
   const users = await clerk.users.getUserList();
   res.json(users);
 });
 
-// @desc    Update a user's details (name, contact)
 const updateUser = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { firstName, lastName, contactNo } = req.body;
@@ -30,14 +28,12 @@ const updateUser = asyncHandler(async (req: Request, res: Response) => {
   res.json(updatedUser);
 });
 
-// @desc    Delete a user from Clerk
 const deleteUser = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.params;
   await clerk.users.deleteUser(userId);
   res.json({ message: "User deleted successfully" });
 });
 
-// @desc    Update a user's role
 const updateUserRole = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { role } = req.body;
@@ -47,25 +43,19 @@ const updateUserRole = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
 
-  // === START: THE FIX ===
-  // Get the existing metadata first to avoid overwriting it
   const user = await clerk.users.getUser(userId);
 
-  // Update only the role, keeping other metadata (like contactNo) intact
   const updatedUser = await clerk.users.updateUser(userId, {
     publicMetadata: {
       ...user.publicMetadata,
       role: role,
     },
   });
-  // === END: THE FIX ===
 
   res.json(updatedUser);
 });
-// @desc    Get user's favorite hotels
-// @route   GET /api/users/me/favorites
 const getMyFavorites = asyncHandler(async (req: Request, res: Response) => {
-  const { userId } = (req as any).auth; // Clerk eken ena user ID eka
+  const { userId } = (req as any).auth;
   if (!userId) {
     res.status(401).json({ message: "Not authenticated" });
     return;
@@ -77,8 +67,6 @@ const getMyFavorites = asyncHandler(async (req: Request, res: Response) => {
   res.json(favoriteHotels);
 });
 
-// @desc    Toggle a hotel in user's favorites
-// @route   POST /api/users/me/favorites
 const toggleFavorite = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = (req as any).auth;
   const { hotelId } = req.body;
@@ -90,9 +78,9 @@ const toggleFavorite = asyncHandler(async (req: Request, res: Response) => {
 
   let updatedFavorites;
   if (favorites.includes(hotelId)) {
-    updatedFavorites = favorites.filter((id) => id !== hotelId); // Remove
+    updatedFavorites = favorites.filter((id) => id !== hotelId);
   } else {
-    updatedFavorites = [...favorites, hotelId]; // Add
+    updatedFavorites = [...favorites, hotelId];
   }
 
   await clerk.users.updateUser(userId, {

@@ -4,7 +4,7 @@ export interface IBooking extends Document {
   hotel: mongoose.Types.ObjectId;
   room: mongoose.Types.ObjectId;
   roomNumber: string;
-  user: string; // Clerk User ID
+  user: string;
   checkInDate: Date;
   checkOutDate: Date;
   guests: { adults: number; children: number };

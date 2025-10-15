@@ -1,12 +1,11 @@
 import React, { createContext, useState, useContext } from "react";
 
-// Danata api dummy conversion rate ekak use karamu
-const LKR_CONVERSION_RATE = 300; // Example: 1 USD = 300 LKR
+const LKR_CONVERSION_RATE = 300;
 
 const CurrencyContext = createContext();
 
 export const CurrencyProvider = ({ children }) => {
-  const [currency, setCurrency] = useState("USD"); // Default currency
+  const [currency, setCurrency] = useState("USD");
 
   const value = {
     currency,
@@ -21,5 +20,4 @@ export const CurrencyProvider = ({ children }) => {
   );
 };
 
-// Custom hook ekak hadagamu lesiyata use karanna
 export const useCurrency = () => useContext(CurrencyContext);

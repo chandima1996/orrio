@@ -88,7 +88,7 @@ const getRoomStats = asyncHandler(async (req: Request, res: Response) => {
   if (stats.length > 0) {
     res.json(stats[0]);
   } else {
-    res.json({ minPrice: 0, maxPrice: 1000 }); // Default if no rooms
+    res.json({ minPrice: 0, maxPrice: 1000 });
   }
 });
 

@@ -1,14 +1,12 @@
 import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
-// Main Layout Components
 import Navbar from "./components/custom/Navbar";
 import Footer from "./components/custom/Footer";
 import GlobalLoader from "./components/custom/GlobalLoader";
 import { Toaster } from "@/components/ui/sonner";
 import LoadingSpinner from "./components/custom/LoadingSpinner";
 
-// Lazy-loaded Page Components
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const HotelsPage = React.lazy(() => import("./pages/HotelsPage"));
 const SingleHotelPage = React.lazy(() => import("./pages/SingleHotelPage"));
@@ -27,7 +25,6 @@ function App() {
       <GlobalLoader />
 
       <main className="min-h-screen">
-        {/* Suspense is the fallback UI while lazy components are loading */}
         <Suspense
           fallback={
             <div className="pt-32">
@@ -41,7 +38,6 @@ function App() {
             <Route path="/hotels/:id" element={<SingleHotelPage />} />
             <Route path="/booking" element={<BookingPage />} />
 
-            {/* Protected routes can be wrapped here later if needed */}
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
 

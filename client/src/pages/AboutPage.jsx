@@ -4,7 +4,6 @@ import { Building2, Sparkles, UserCheck } from "lucide-react";
 const AboutPage = () => {
   return (
     <div className="pt-20 bg-muted/20">
-      {/* Hero Section */}
       <section className="py-20 text-center bg-primary text-primary-foreground">
         <div className="container px-4 mx-auto">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
@@ -20,7 +19,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Our Mission Section */}
       <section className="py-16">
         <div className="container px-4 mx-auto text-center">
           <h2 className="mb-4 text-3xl font-bold">Our Mission</h2>
@@ -36,7 +34,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Our Services Section */}
       <section className="py-16 bg-background">
         <div className="container px-4 mx-auto">
           <h2 className="mb-12 text-3xl font-bold text-center">
@@ -53,7 +50,6 @@ const AboutPage = () => {
                 hotel for you.
               </p>
             </div>
-            {/* Service 2 */}
             <div className="p-6 text-center border rounded-lg">
               <Building2 className="w-12 h-12 text-primary" />
 
@@ -63,7 +59,6 @@ const AboutPage = () => {
                 network ensures you have the best options.
               </p>
             </div>
-            {/* Service 3 */}
             <div className="p-6 text-center border rounded-lg">
               <UserCheck className="w-12 h-12 text-primary" />
 

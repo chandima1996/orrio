@@ -13,7 +13,6 @@ import {
   Plus,
 } from "lucide-react";
 
-// Shadcn UI and Custom Components
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -33,7 +32,6 @@ import SearchBar from "../components/custom/SearchBar";
 const HotelsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // --- State Management ---
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState("grid");
@@ -46,10 +44,8 @@ const HotelsPage = () => {
         : undefined,
       to: searchParams.get("to") ? new Date(searchParams.get("to")) : undefined,
     },
-    // Guest count is now managed by the filter state below
   };
 
-  // Filter States
   const [guests, setGuests] = useState(Number(searchParams.get("guests")) || 1); // UPDATED
   const [priceRange, setPriceRange] = useState({ min: 0, max: 5000 });
   const [sliderValue, setSliderValue] = useState([0, 5000]);
@@ -59,10 +55,11 @@ const HotelsPage = () => {
   const [selectedUserRating, setSelectedUserRating] = useState(0);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
-  // Fetch Room Stats for Slider Range
   useEffect(() => {
     const fetchRoomStats = async () => {
       try {
+        const API_BASE_URL =
+          import.meta.env.VITE_API_BASE_URL || "http://localhost:5001";
         const response = await fetch("http://localhost:5001/api/rooms/stats");
         const stats = await response.json();
         if (stats.minPrice && stats.maxPrice) {
@@ -76,16 +73,14 @@ const HotelsPage = () => {
     fetchRoomStats();
   }, []);
 
-  // Main Data Fetching Logic (depends on all filters)
   useEffect(() => {
     const fetchHotels = async () => {
       setLoading(true);
       const params = new URLSearchParams(searchParams);
 
-      // Add all filter states to the params
       params.set("minPrice", sliderValue[0]);
       params.set("maxPrice", sliderValue[1]);
-      params.set("guests", guests.toString()); // UPDATED
+      params.set("guests", guests.toString());
 
       params.delete("location");
       params.delete("starClass");
@@ -135,11 +130,9 @@ const HotelsPage = () => {
     selectedUserRating,
     selectedAmenities,
     guests,
-  ]); // UPDATED
+  ]);
 
-  // Event Handlers
   const handleSearch = ({ searchTerm, dateRange }) => {
-    // adults/children removed
     const params = new URLSearchParams();
     if (searchTerm) params.set("q", searchTerm);
     if (dateRange.from) params.set("from", dateRange.from.toISOString());

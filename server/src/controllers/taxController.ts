@@ -7,7 +7,6 @@ import Tax from "../models/taxModel";
 const getAllTaxes = asyncHandler(async (req: Request, res: Response) => {
   let taxes = await Tax.find({});
 
-  // If no taxes exist, create a default one
   if (taxes.length === 0) {
     const defaultTax = new Tax({
       name: "Standard VAT",
@@ -15,7 +14,7 @@ const getAllTaxes = asyncHandler(async (req: Request, res: Response) => {
       isDefault: true,
     });
     const createdTax = await defaultTax.save();
-    taxes = [createdTax]; // Return the newly created tax in an array
+    taxes = [createdTax];
   }
 
   res.json(taxes);

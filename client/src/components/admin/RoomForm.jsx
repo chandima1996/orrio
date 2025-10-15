@@ -49,7 +49,7 @@ const formSchema = z.object({
   images: z.string().min(1, "At least one image URL is required."),
   roomNumberRange: z
     .string()
-    .regex(/^\d+-\d+$/, { message: "Must be a range like 101-105" }), // NEW
+    .regex(/^\d+-\d+$/, { message: "Must be a range like 101-105" }),
 });
 
 const RoomForm = ({ onSuccess, hotelId, initialData }) => {
@@ -122,7 +122,6 @@ const RoomForm = ({ onSuccess, hotelId, initialData }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {/* === START: ALL FORM FIELDS === */}
         <FormField
           control={form.control}
           name="type"
@@ -289,7 +288,6 @@ const RoomForm = ({ onSuccess, hotelId, initialData }) => {
         >
           {form.formState.isSubmitting ? "Saving..." : "Save Changes"}
         </Button>
-        {/* === END: ALL FORM FIELDS === */}
       </form>
     </Form>
   );

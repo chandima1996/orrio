@@ -22,10 +22,8 @@ const HeroSection = () => {
   const navigate = useNavigate();
   const plugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: false }));
 
-  // --- 3D Tilt Logic State ---
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
-  // Handles mouse movement over the content box to calculate rotation
   const onMouseMove = (e) => {
     const box = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - box.left;
@@ -33,19 +31,16 @@ const HeroSection = () => {
     const centerX = box.width / 2;
     const centerY = box.height / 2;
 
-    // Adjust the divisor to change the tilt amount (larger number = less tilt)
     const rotateX = (y - centerY) / 25;
     const rotateY = (centerX - x) / 25;
 
     setRotate({ x: rotateX, y: rotateY });
   };
 
-  // Resets the tilt when the mouse leaves the content box
   const onMouseLeave = () => {
     setRotate({ x: 0, y: 0 });
   };
 
-  // Handles the AI search action
   const handleSearch = () => {
     if (searchQuery.trim() !== "") {
       navigate(`/hotels?q=${encodeURIComponent(searchQuery)}`);
@@ -54,7 +49,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative w-full h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden">
-      {/* Background Image Carousel */}
       <Carousel
         className="absolute w-full h-full"
         opts={{ loop: true }}
@@ -77,10 +71,8 @@ const HeroSection = () => {
         </CarouselContent>
       </Carousel>
 
-      {/* Dark Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/50"></div>
 
-      {/* Main Content with 3D Tilt Effect */}
       <motion.div
         className="relative z-10 flex flex-col items-center p-8 text-center text-white rounded-2xl bg-black/20 backdrop-blur-sm"
         initial={{ opacity: 0, y: -20 }}
@@ -98,7 +90,7 @@ const HeroSection = () => {
         }}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
-        style={{ perspective: "1000px" }} // This CSS property enables the 3D space for the tilt effect
+        style={{ perspective: "1000px" }}
       >
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
           Find Your Perfect Stay
@@ -108,7 +100,6 @@ const HeroSection = () => {
           adventure awaits.
         </p>
 
-        {/* AI Search Bar */}
         <div className="w-full max-w-2xl mt-8">
           <div className="relative">
             <Search className="absolute w-5 h-5 text-gray-400 -translate-y-1/2 left-4 top-1/2" />

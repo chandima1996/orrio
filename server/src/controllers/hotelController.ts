@@ -4,7 +4,6 @@ import Hotel from "../models/hotelModel";
 import OpenAI from "openai";
 import Room from "../models/roomModel";
 
-// Initialize OpenAI with your API key from the .env file
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // @desc    Fetch all hotels
@@ -113,17 +112,14 @@ const searchHotels = asyncHandler(async (req: Request, res: Response) => {
 
   const allHotels = await Hotel.find({});
 
-  // === START: THE FIX ===
-  // Add the hotel description to the data sent to the AI
   const simplifiedHotels = allHotels.map((hotel) => ({
     id: hotel._id,
     name: hotel.name,
     location: hotel.location,
-    description: hotel.description, // Add description here
+    description: hotel.description,
     amenities: hotel.amenities.join(", "),
     starClass: hotel.starClass,
   }));
-  // === END: THE FIX ===
 
   const systemPrompt = `You are an intelligent hotel matching assistant. I will provide a user's query and a JSON list of available hotels (including name, location, description, amenities). Your ONLY task is to analyze the user's query and return a comma-separated string of the hotel IDs that best match the user's described vibe or requirements. Do not provide any explanation, greeting, or any other text. JUST THE COMMA-SEPARATED IDs. If no hotels match, return an empty string.
 
@@ -131,10 +127,8 @@ const searchHotels = asyncHandler(async (req: Request, res: Response) => {
     ${JSON.stringify(simplifiedHotels)}
     `;
 
-  // For debugging: Let's see what we are sending to the AI
   console.log("--- Sending to AI ---");
   console.log("User Query:", userQuery);
-  // console.log("System Prompt:", systemPrompt); // Uncomment this if you want to see the full huge prompt
 
   const response = await openai.chat.completions.create({
     model: "gpt-4o-mini",
@@ -147,7 +141,6 @@ const searchHotels = asyncHandler(async (req: Request, res: Response) => {
 
   const aiResponseContent = response.choices[0].message.content;
 
-  // For debugging: Let's see what the AI sent back
   console.log("--- Received from AI ---");
   console.log("AI Response:", aiResponseContent);
 

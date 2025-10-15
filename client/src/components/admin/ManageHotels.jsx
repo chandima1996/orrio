@@ -98,7 +98,7 @@ const ManageHotels = () => {
       toast.success("Deleted!", {
         description: `Hotel "${hotelToDelete.name}" has been removed.`,
       });
-      fetchHotels(); // Refresh list after deleting
+      fetchHotels();
     } catch (error) {
       toast.error("Error!", { description: "Could not delete the hotel." });
     } finally {
@@ -118,9 +118,7 @@ const ManageHotels = () => {
       </div>
 
       <Dialog open={isFormDialogOpen} onOpenChange={handleDialogClose}>
-        {/* === START: THE FIX === */}
         <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
-          {/* === END: THE FIX === */}
           <DialogHeader>
             <DialogTitle>
               {hotelToEdit ? "Edit Hotel" : "Add New Hotel"}

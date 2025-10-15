@@ -7,7 +7,6 @@ import * as z from "zod";
 import { toast } from "sonner";
 import { format, isWithinInterval, startOfDay, endOfDay } from "date-fns";
 
-// Shadcn UI & Custom Components
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
@@ -54,7 +53,6 @@ import LoadingSpinner from "@/components/custom/LoadingSpinner";
 import HotelCard from "@/components/custom/HotelCard";
 import { useLoading } from "@/context/LoadingContext";
 
-// --- Sub-component: My Bookings ---
 const MyBookings = () => {
   const [allBookings, setAllBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,7 +61,6 @@ const MyBookings = () => {
   const { getToken } = useAuth();
   const navigate = useNavigate();
 
-  // Filter States
   const [filterHotelId, setFilterHotelId] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterDateRange, setFilterDateRange] = useState({
@@ -97,7 +94,6 @@ const MyBookings = () => {
     fetchBookings();
   }, []);
 
-  // Client-side filtering logic
   const filteredBookings = useMemo(() => {
     return allBookings.filter((booking) => {
       if (filterHotelId !== "all" && booking.hotel._id !== filterHotelId)
@@ -166,7 +162,6 @@ const MyBookings = () => {
     const hotels = new Map();
     allBookings.forEach((b) => {
       if (b.hotel) {
-        // Ensure hotel data exists
         hotels.set(b.hotel._id, b.hotel.name);
       }
     });
@@ -367,7 +362,6 @@ const MyBookings = () => {
   );
 };
 
-// --- Sub-component: My Favorites ---
 const MyFavorites = () => {
   const [favorites, setFavorites] = useState([]);
   const { setIsLoading } = useLoading();
@@ -430,7 +424,6 @@ const MyFavorites = () => {
   );
 };
 
-// --- Sub-component: Manage Personal Details ---
 const detailsSchema = z.object({
   firstName: z.string().min(2, "First name is too short."),
   lastName: z.string().min(2, "Last name is too short."),
@@ -533,7 +526,6 @@ const ManageDetails = () => {
   );
 };
 
-// --- Main Dashboard Page ---
 const DashboardPage = () => {
   const { isLoaded, isSignedIn, user } = useUser();
 

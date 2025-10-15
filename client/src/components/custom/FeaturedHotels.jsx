@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 import HotelCard from "./HotelCard";
-import HotelCardSkeleton from "./HotelCardSkeleton"; // Skeleton import karaganna
-
+import HotelCardSkeleton from "./HotelCardSkeleton";
 const FeaturedHotels = () => {
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,18 +17,13 @@ const FeaturedHotels = () => {
           );
         }
 
-        // === START: THE FIX ===
-        // The backend now returns an object like { hotels: [...] }
         const data = await response.json();
         const allHotels = data.hotels; // Get the array from the 'hotels' property
-        // === END: THE FIX ===
 
-        // Ensure allHotels is an array before filtering
         if (Array.isArray(allHotels)) {
           const topRated = allHotels.filter((hotel) => hotel.rating >= 4.9);
           setFeatured(topRated);
         } else {
-          // Handle cases where the response is not as expected
           setFeatured([]);
           console.error("API response is not an array:", allHotels);
         }

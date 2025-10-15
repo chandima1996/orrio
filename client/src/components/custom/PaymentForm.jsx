@@ -21,10 +21,9 @@ export const PaymentForm = ({ onPaymentSuccess }) => {
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
         return_url: `${window.location.origin}/dashboard`,
       },
-      redirect: "if_required", // Don't redirect immediately
+      redirect: "if_required",
     });
 
     if (error) {
@@ -32,7 +31,7 @@ export const PaymentForm = ({ onPaymentSuccess }) => {
       setIsProcessing(false);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       toast.success("Payment Successful!");
-      onPaymentSuccess(paymentIntent.id); // Pass payment ID to parent
+      onPaymentSuccess(paymentIntent.id);
     }
     setIsProcessing(false);
   };

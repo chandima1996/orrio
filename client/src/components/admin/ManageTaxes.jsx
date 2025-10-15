@@ -12,7 +12,6 @@ import {
 import { MoreHorizontal, PlusCircle } from "lucide-react";
 import LoadingSpinner from "../custom/LoadingSpinner";
 
-// Danata form eka me component eka athulema hadamu, meka podi nisa
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import {
@@ -106,13 +105,11 @@ const ManageTaxes = () => {
     setIsDialogOpen(true);
   };
 
-  // Delete functionality will be added if needed
-
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="border rounded-lg p-4">
-      <div className="flex justify-between items-center mb-4">
+    <div className="p-4 border rounded-lg">
+      <div className="flex items-center justify-between mb-4">
         <h2 className="text-2xl font-bold">Manage Taxes</h2>
         <Button
           onClick={() => {
@@ -120,7 +117,7 @@ const ManageTaxes = () => {
             setIsDialogOpen(true);
           }}
         >
-          <PlusCircle className="mr-2 h-4 w-4" />
+          <PlusCircle className="w-4 h-4 mr-2" />
           Add New Tax
         </Button>
       </div>
@@ -134,7 +131,7 @@ const ManageTaxes = () => {
         </DialogContent>
       </Dialog>
 
-      <div className="rounded-md border">
+      <div className="border rounded-md">
         <Table>
           <TableHeader>
             <TableRow>

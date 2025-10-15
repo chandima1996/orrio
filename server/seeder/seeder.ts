@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import colors from "colors";
-import { hotelsData } from "../src/data/dummyData"; // 1. Path eka hariyatama thiyenawa
+import { hotelsData } from "../src/data/dummyData";
 import Hotel from "../src/models/hotelModel";
-import Room, { IRoom } from "../src/models/roomModel"; // 2. IRoom interface eka import karanawa
+import Room, { IRoom } from "../src/models/roomModel";
 import connectDB from "../src/config/db";
 
 dotenv.config();
@@ -13,7 +13,6 @@ const importData = async () => {
   try {
     await connectDB();
 
-    // Clear existing data
     await Room.deleteMany();
     await Hotel.deleteMany();
 
@@ -21,17 +20,14 @@ const importData = async () => {
 
     const createdHotels = await Hotel.insertMany(hotelsData);
 
-    // 3. 'roomsToCreate' ekata hari type eka denawa
     const roomsToCreate: Partial<IRoom>[] = [];
 
     createdHotels.forEach((hotel) => {
-      // Create 5 sample rooms for each hotel
       for (let i = 1; i <= 5; i++) {
         const roomType =
           i === 1 ? "Suite" : i <= 3 ? "Deluxe Room" : "Standard Room";
 
-        // 4. Hotel eke price nathi nisa, base price ekak use karanawa
-        let price = 100; // Base price for a standard room
+        let price = 100;
         if (roomType === "Suite") price = 250;
         if (roomType === "Deluxe Room") price = 150;
 
@@ -39,7 +35,7 @@ const importData = async () => {
           hotel: hotel._id,
           type: roomType,
           pricePerNight: price,
-          capacity: i <= 2 ? 4 : 2, // Suites and Deluxe have more capacity
+          capacity: i <= 2 ? 4 : 2,
           size: i <= 2 ? 500 : 300,
           beds: { king: i === 1 ? 1 : 0, queen: i <= 3 ? 1 : 1 },
           amenities: [

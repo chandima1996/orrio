@@ -54,14 +54,12 @@ const ManageRooms = () => {
   const [roomToEdit, setRoomToEdit] = useState(null);
   const [roomToDelete, setRoomToDelete] = useState(null);
 
-  // Fetch hotels for the dropdown
   useEffect(() => {
     const fetchHotels = async () => {
       setLoadingHotels(true);
       try {
         const response = await fetch("http://localhost:5001/api/hotels");
         const data = await response.json();
-        // Ensure that we are setting an array, even if the API response changes
         setHotels(data.hotels || (Array.isArray(data) ? data : []));
       } catch (error) {
         toast.error("Error", { description: "Failed to fetch hotels." });
@@ -73,7 +71,6 @@ const ManageRooms = () => {
     fetchHotels();
   }, []);
 
-  // Fetch rooms when a hotel is selected
   const fetchRoomsForHotel = async (hotelId) => {
     if (!hotelId) {
       setRooms([]);
@@ -86,7 +83,6 @@ const ManageRooms = () => {
       );
       const data = await response.json();
 
-      // --- ROBUSTNESS FIX: Check if the response is an array to prevent crashes ---
       if (Array.isArray(data)) {
         setRooms(data);
       } else {
@@ -97,8 +93,7 @@ const ManageRooms = () => {
       toast.error("Error", {
         description: "Failed to fetch rooms for the selected hotel.",
       });
-      setRooms([]); // Set to empty array on error to prevent crash
-    } finally {
+      setRooms([]);
       setLoadingRooms(false);
     }
   };

@@ -7,7 +7,6 @@ const Footer = () => {
     <footer className="text-gray-300 bg-gray-900">
       <div className="container px-4 py-12 mx-auto">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          {/* Section 1: Logo and Brand */}
           <div className="col-span-1 mb-6 md:mb-0">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <Hotel className="h-7 w-7 text-primary" />
@@ -21,7 +20,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Section 2: Quick Links */}
           <div>
             <h3 className="mb-4 font-bold text-white">Quick Links</h3>
             <ul className="space-y-2">
@@ -57,7 +55,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Section 3: Connect */}
           <div>
             <h3 className="mb-4 font-bold text-white">Connect</h3>
             <ul className="space-y-2 text-sm">
@@ -67,7 +64,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Section 4: Social Media */}
           <div>
             <h3 className="mb-4 font-bold text-white">Follow Us</h3>
             <div className="flex items-center gap-4">

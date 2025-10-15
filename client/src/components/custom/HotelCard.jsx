@@ -21,7 +21,6 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 
-// Amenity Icons Dictionary
 const amenityIcons = {
   Wifi: <Wifi className="flex-shrink-0 w-4 h-4" />,
   Pool: (
@@ -45,7 +44,6 @@ const amenityIcons = {
   ),
   Parking: <ParkingSquare className="flex-shrink-0 w-4 h-4" />,
   Restaurant: <UtensilsCrossed className="flex-shrink-0 w-4 h-4" />,
-  // Add other icons as needed
 };
 
 const handleCarouselNavClick = (e) => {
@@ -111,7 +109,6 @@ const HotelCard = ({ hotel, view = "grid", onFavChange }) => {
 
   if (!hotel || !hotel._id) return null;
 
-  // --- Grid View Specific Content ---
   const GridViewContent = () => (
     <Card className="flex flex-col h-full overflow-hidden group dark:hover:ring-1 dark:hover:ring-slate-500">
       <div className="relative">
@@ -176,7 +173,6 @@ const HotelCard = ({ hotel, view = "grid", onFavChange }) => {
             <span className="text-sm line-clamp-1">{hotel.location}</span>
           </div>
 
-          {/* === START: UPDATED AMENITIES DISPLAY === */}
           <div className="flex flex-wrap items-center mt-4 gap-x-4 gap-y-2">
             {hotel.amenities.slice(0, 4).map((amenity) => (
               <div
@@ -189,10 +185,8 @@ const HotelCard = ({ hotel, view = "grid", onFavChange }) => {
               </div>
             ))}
           </div>
-          {/* === END: UPDATED AMENITIES DISPLAY === */}
         </div>
 
-        {/* === PRICE SECTION REMOVED, BUTTON ADDED === */}
         <div className="pt-4 mt-auto">
           <Button className="w-full">View Details</Button>
         </div>
@@ -200,7 +194,6 @@ const HotelCard = ({ hotel, view = "grid", onFavChange }) => {
     </Card>
   );
 
-  // --- List View Specific Content ---
   const ListViewContent = () => (
     <Card className="flex flex-col h-full overflow-hidden group sm:flex-row dark:hover:ring-1 dark:hover:ring-slate-500">
       <div className="relative flex-shrink-0 sm:w-1/3">

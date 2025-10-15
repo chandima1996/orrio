@@ -38,7 +38,6 @@ import LoadingSpinner from "../custom/LoadingSpinner";
 import UserForm from "./UserForm";
 
 const ManageUsers = () => {
-  // --- STATE MANAGEMENT ---
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
@@ -49,7 +48,6 @@ const ManageUsers = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const [userToUpdateRole, setUserToUpdateRole] = useState(null);
 
-  // --- DATA FETCHING ---
   const fetchUsers = async () => {
     setLoading(true);
     try {
@@ -68,9 +66,6 @@ const ManageUsers = () => {
     fetchUsers();
   }, []);
 
-  // --- EVENT HANDLERS ---
-
-  // Role Change Handlers
   const handleRoleChangeClick = (user, newRole) => {
     setUserToUpdateRole({ user, newRole });
     setIsRoleConfirmDialogOpen(true);
@@ -93,7 +88,7 @@ const ManageUsers = () => {
       toast.success("Success", {
         description: `User role has been changed to ${newRole}.`,
       });
-      fetchUsers(); // Refresh the user list to show the change
+      fetchUsers();
     } catch (error) {
       toast.error("Error", { description: error.message });
     } finally {
@@ -102,7 +97,6 @@ const ManageUsers = () => {
     }
   };
 
-  // Edit Form Handlers
   const handleDialogClose = () => {
     setIsFormDialogOpen(false);
     setUserToEdit(null);
@@ -124,7 +118,6 @@ const ManageUsers = () => {
     setIsFormDialogOpen(true);
   };
 
-  // Delete Handlers
   const handleDeleteClick = (user) => {
     setUserToDelete(user);
     setIsConfirmDeleteDialogOpen(true);
@@ -151,10 +144,9 @@ const ManageUsers = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="border rounded-lg p-4">
-      <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
+    <div className="p-4 border rounded-lg">
+      <h2 className="mb-4 text-2xl font-bold">Manage Users</h2>
 
-      {/* Edit User Dialog */}
       <Dialog open={isFormDialogOpen} onOpenChange={handleDialogClose}>
         <DialogContent>
           <DialogHeader>
@@ -164,8 +156,7 @@ const ManageUsers = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Users Table */}
-      <div className="rounded-md border">
+      <div className="border rounded-md">
         <Table>
           <TableHeader>
             <TableRow>
@@ -206,8 +197,8 @@ const ManageUsers = () => {
                 <TableCell className="text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="h-8 w-8 p-0">
-                        <MoreHorizontal className="h-4 w-4" />
+                      <Button variant="ghost" className="w-8 h-8 p-0">
+                        <MoreHorizontal className="w-4 h-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -243,7 +234,6 @@ const ManageUsers = () => {
         </Table>
       </div>
 
-      {/* Delete User Confirmation Dialog */}
       <AlertDialog
         open={isConfirmDeleteDialogOpen}
         onOpenChange={setIsConfirmDeleteDialogOpen}
@@ -265,7 +255,6 @@ const ManageUsers = () => {
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Change Role Confirmation Dialog */}
       <AlertDialog
         open={isRoleConfirmDialogOpen}
         onOpenChange={setIsRoleConfirmDialogOpen}

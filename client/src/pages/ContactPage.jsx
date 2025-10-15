@@ -22,8 +22,6 @@ const ContactPage = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // This is a placeholder for a real email sending service (e.g., Resend, EmailJS)
-    console.log(data);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     toast.success("Message Sent!", {
       description:
@@ -34,7 +32,6 @@ const ContactPage = () => {
 
   return (
     <div className="pt-20">
-      {/* Hero Section */}
       <section className="py-16 bg-muted/20">
         <div className="container px-4 mx-auto text-center">
           <h1 className="text-4xl font-bold md:text-5xl">Get In Touch</h1>
@@ -45,10 +42,8 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* Main Content Section */}
       <section className="container px-4 py-16 mx-auto">
         <div className="grid items-start grid-cols-1 gap-16 md:grid-cols-2">
-          {/* === START: UPDATED CONTACT INFO (LEFT SIDE) === */}
           <div className="space-y-8">
             <h2 className="text-3xl font-bold tracking-tight">
               Contact Information
@@ -83,9 +78,6 @@ const ContactPage = () => {
               </div>
             </div>
           </div>
-          {/* === END: UPDATED CONTACT INFO === */}
-
-          {/* === START: UPDATED CONTACT FORM (RIGHT SIDE) === */}
           <div>
             <Card>
               <CardHeader>
@@ -135,7 +127,6 @@ const ContactPage = () => {
               </CardContent>
             </Card>
           </div>
-          {/* === END: UPDATED CONTACT FORM === */}
         </div>
       </section>
     </div>

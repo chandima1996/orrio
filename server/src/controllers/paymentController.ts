@@ -12,7 +12,6 @@ const createPaymentIntent = asyncHandler(
   async (req: Request, res: Response) => {
     const { amount } = req.body; // Amount in USD
 
-    // Amount should be in cents
     const amountInCents = Math.round(amount * 100);
 
     const paymentIntent = await stripe.paymentIntents.create({

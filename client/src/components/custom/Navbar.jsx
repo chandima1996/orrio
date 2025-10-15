@@ -33,14 +33,12 @@ const Navbar = () => {
   return (
     <header className="fixed top-0 left-0 z-50 w-full px-4 py-3 border-b sm:px-8 md:px-12 lg:px-20 bg-background/80 backdrop-blur-sm">
       <div className="flex items-center justify-between mx-auto">
-        {/* === START: UPDATED LOGO WITH GRADIENT === */}
         <Link to="/" className="flex items-center gap-2">
           <Hotel className="h-7 w-7 text-primary" />
           <span className="text-2xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
             Orrio
           </span>
         </Link>
-        {/* === END: UPDATED LOGO === */}
 
         <nav className="items-center hidden gap-6 md:flex">
           <Link to="/" className={linkClasses}>

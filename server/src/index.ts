@@ -15,7 +15,6 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// app.use(cors());
 app.use(express.json());
 
 const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
@@ -30,7 +29,6 @@ app.get("/", (req, res) => {
   res.send("Hello from Orrio Backend! 👋");
 });
 
-// 2. USE HOTEL ROUTES
 app.use("/api/hotels", hotelRoutes);
 app.use("/api/rooms", roomRoutes);
 app.use("/api/users", userRoutes);

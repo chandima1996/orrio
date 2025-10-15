@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-// Shadcn UI & Custom Components
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -41,14 +40,12 @@ const SingleHotelPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // --- State Management ---
   const [hotel, setHotel] = useState(null);
   const [allRooms, setAllRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortBy, setSortBy] = useState("price-asc");
 
-  // Create an object from URL params to pass to the SearchBar and for filtering
   const searchBarInitialData = useMemo(
     () => ({
       searchTerm: searchParams.get("q") || "",
@@ -67,7 +64,6 @@ const SingleHotelPage = () => {
 
   const dateRangeForRoomCard = searchBarInitialData.dateRange;
 
-  // --- Data Fetching ---
   useEffect(() => {
     const fetchHotelAndRooms = async () => {
       if (!hotelId) return;
@@ -98,16 +94,13 @@ const SingleHotelPage = () => {
     fetchHotelAndRooms();
   }, [hotelId]);
 
-  // --- Room Filtering & Sorting Logic ---
   const { availableRooms, otherRooms } = useMemo(() => {
     const totalGuests = searchBarInitialData.guests;
 
-    // If no specific guest filter is applied (default is 1 or 0), show all rooms as "other"
     if (totalGuests <= 1) {
       return { availableRooms: [], otherRooms: allRooms };
     }
 
-    // Otherwise, split rooms into matching (available) and non-matching (other)
     const available = allRooms.filter((room) => room.capacity >= totalGuests);
     const other = allRooms.filter((room) => room.capacity < totalGuests);
 
@@ -132,7 +125,6 @@ const SingleHotelPage = () => {
     return sorted;
   }, [otherRooms, sortBy]);
 
-  // --- Event Handler for the new search bar ---
   const handleSearch = ({ searchTerm, dateRange, guests }) => {
     const params = new URLSearchParams();
     if (searchTerm) params.set("q", searchTerm);

@@ -18,7 +18,6 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 
 const SearchBar = ({ onSearch, initialData = {} }) => {
-  // State is initialized from the initialData prop passed by the parent page
   const [searchTerm, setSearchTerm] = useState(initialData.searchTerm || "");
   const [dateRange, setDateRange] = useState(
     initialData.dateRange || { from: undefined, to: undefined }
@@ -26,7 +25,6 @@ const SearchBar = ({ onSearch, initialData = {} }) => {
   const [adults, setAdults] = useState(initialData.adults || 1);
   const [children, setChildren] = useState(initialData.children || 0);
 
-  // Effect to update internal state if the initial data from the parent changes
   useEffect(() => {
     setSearchTerm(initialData.searchTerm || "");
     setDateRange(initialData.dateRange || { from: undefined, to: undefined });
@@ -35,7 +33,6 @@ const SearchBar = ({ onSearch, initialData = {} }) => {
   }, [initialData]);
 
   const handleSearchClick = () => {
-    // Pass the current state up to the parent component's onSearch function
     onSearch({ searchTerm, dateRange, adults, children });
   };
 

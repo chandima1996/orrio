@@ -9,7 +9,6 @@ import { format, differenceInCalendarDays } from "date-fns";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-// Shadcn UI & Custom Components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,10 +39,8 @@ import LoadingSpinner from "@/components/custom/LoadingSpinner";
 import { useCurrency } from "@/context/CurrencyContext";
 import { PaymentForm } from "../components/custom/PaymentForm";
 
-// Load Stripe with your publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
-// Zod Validation Schema for Guest Details
 const guestInfoSchema = z.object({
   firstName: z.string().min(2, "First name is required."),
   lastName: z.string().min(2, "Last name is required."),
@@ -59,7 +56,6 @@ const BookingPage = () => {
   const { getToken } = useAuth();
   const { currency, conversionRate } = useCurrency();
 
-  // --- State Management ---
   const [step, setStep] = useState(1);
   const [paymentOption, setPaymentOption] = useState("pending");
   const [hotel, setHotel] = useState(null);
@@ -68,7 +64,6 @@ const BookingPage = () => {
   const [guestInfo, setGuestInfo] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
 
-  // Booking details state
   const [dateRange, setDateRange] = useState({
     from: searchParams.get("from")
       ? new Date(searchParams.get("from"))
@@ -83,7 +78,6 @@ const BookingPage = () => {
     searchParams.get("roomNumber") || ""
   );
 
-  // Form setup
   const form = useForm({
     resolver: zodResolver(guestInfoSchema),
     defaultValues: {
@@ -99,7 +93,6 @@ const BookingPage = () => {
   const hotelId = searchParams.get("hotelId");
   const roomId = searchParams.get("roomId");
 
-  // Dynamic Calculations
   const numberOfNights =
     dateRange.to && dateRange.from
       ? differenceInCalendarDays(dateRange.to, dateRange.from)
@@ -110,7 +103,6 @@ const BookingPage = () => {
     currency: currency,
   }).format(totalPrice * conversionRate);
 
-  // Data Fetching Logic (handles both Create and View modes)
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -118,7 +110,6 @@ const BookingPage = () => {
         const token = await getToken();
 
         if (bookingId) {
-          // --- VIEW MODE ---
           const response = await fetch(
             `http://localhost:5001/api/bookings/${bookingId}`,
             {
@@ -139,7 +130,6 @@ const BookingPage = () => {
           setRoomNumber(bookingData.roomNumber);
           form.reset(bookingData.guestInfo);
         } else if (hotelId && roomId) {
-          // --- CREATE MODE ---
           const [hotelRes, roomRes] = await Promise.all([
             fetch(`http://localhost:5001/api/hotels/${hotelId}`),
             fetch(`http://localhost:5001/api/rooms/${roomId}`),
@@ -163,7 +153,6 @@ const BookingPage = () => {
     fetchData();
   }, [bookingId, hotelId, roomId, getToken, form, navigate]);
 
-  // Form and Booking Submission Handlers
   const onDetailsSubmit = async (data) => {
     setGuestInfo(data);
     if (totalPrice <= 0)
@@ -253,7 +242,6 @@ const BookingPage = () => {
 
   return (
     <div className="container grid grid-cols-1 gap-12 px-4 py-8 pt-24 mx-auto lg:grid-cols-3">
-      {/* Left Side: Booking Summary */}
       <div className="space-y-6 lg:col-span-1">
         <h2 className="text-2xl font-bold">Your Booking Summary</h2>
         <div className="overflow-hidden border rounded-lg">
@@ -358,7 +346,6 @@ const BookingPage = () => {
         </div>
       </div>
 
-      {/* Right Side: Form & Payment */}
       <div className="lg:col-span-2">
         {step === 1 && (
           <div>

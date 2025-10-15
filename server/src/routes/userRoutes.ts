@@ -11,19 +11,12 @@ import {
 
 const router = express.Router();
 
-// --- Admin Routes ---
-// These routes are for the admin dashboard to manage all users
-router.route("/").get(getAllUsers); // This could be protected to be admin-only later
+router.route("/").get(getAllUsers);
 
-router
-  .route("/:userId")
-  .put(updateUser) // This could also be used by a user to update their own info
-  .delete(deleteUser); // Admin-only action
+router.route("/:userId").put(updateUser).delete(deleteUser);
 
-router.route("/:userId/role").put(updateUserRole); // Admin-only action
+router.route("/:userId/role").put(updateUserRole);
 
-// --- User-Specific Protected Routes ---
-// These routes are for the logged-in user to manage their own data
 router
   .route("/me/favorites")
   .get(ClerkExpressRequireAuth(), getMyFavorites)
